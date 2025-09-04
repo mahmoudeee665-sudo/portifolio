@@ -122,7 +122,7 @@ const Header = () => {
                   animate={{ y: [0, 6, 0], x: [0, -4, 0] }}
                   transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 0.2 }}
                 />
-                <span className="relative z-10 font-extrabold tracking-tight select-none text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-fuchsia-500 to-pink-500">
+                <span className="relative z-10 font-extrabold tracking-tight select-none text-transparent bg-clip-text bg-gradient-to-r from-violet-200 via-fuchsia-200 to-pink-200">
                   MV7mood
                 </span>
               </div>
