@@ -125,7 +125,7 @@ const AboutSection = () => {
         ref={introRef}
         className="absolute lg:bottom-[-20rem] md:bottom-[-10rem] bottom-[-20rem] left-0 w-full flex md:flex-row flex-col justify-between lg:px-24 px-5 items-center opacity-0"
       >
-        <h3 className="font-sans text-lg md:text-2xl font-bold text-purple-200 z-50 lg:max-w-[45rem] max-w-[27rem] tracking-wider md:mt-20 sm:mt-[-40rem] mt-[-32rem]">
+        <h3 className="font-sans text-lg md:text-4xl font-bold text-purple-200 z-50 lg:max-w-[45rem] max-w-[27rem] tracking-wider md:mt-20 sm:mt-[-40rem] mt-[-32rem]">
 Hi, I’m Mahmoud, a Frontend Developer passionate about creating fast, reliable, and visually engaging websites. I design responsive interfaces with modern frameworks like React, Tailwind CSS, and JavaScript. From landing pages to full web apps, I focus on clean, scalable code and smooth user experiences that balance design and functionality.
         </h3>
 
