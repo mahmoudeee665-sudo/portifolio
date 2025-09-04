@@ -29,12 +29,12 @@ const AboutSection = () => {
       titleRef.current,
       { y: 100, opacity: 0 },
       {
-        y: -350,
+        y: -430,
         opacity: 1,
         duration: 0.8,
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 40%",
+          start: "top 30%",
           toggleActions: "play none none reverse",
         },
       }
@@ -87,6 +87,7 @@ const AboutSection = () => {
 
   return (
     <section
+    section id="about"
       ref={sectionRef}
       className="h-screen relative overflow-hidden bg-gradient-to-b from-black to-[#9a74cf50]"
     >
@@ -113,7 +114,7 @@ const AboutSection = () => {
       <div className="container mx-auto px-4 h-full flex flex-col items-center justify-center ">
         <h1
           ref={titleRef}
-          className="font-sans text-5xl md:text-7xl font-bold sm:mb-16 text-center text-white opacity-0"
+          className="font-sans text-4xl md:text-7xl font-bold sm:mb-1 text-center text-white opacity-0"
         >
           About Me
         </h1>
@@ -124,7 +125,7 @@ const AboutSection = () => {
         ref={introRef}
         className="absolute lg:bottom-[-20rem] md:bottom-[-10rem] bottom-[-20rem] left-0 w-full flex md:flex-row flex-col justify-between lg:px-24 px-5 items-center opacity-0"
       >
-        <h3 className="font-sans text-xl md:text-3xl font-bold text-purple-200 z-50 lg:max-w-[45rem] max-w-[27rem] tracking-wider md:mt-20 sm:mt-[-40rem] mt-[-32rem]">
+        <h3 className="font-sans text-lg md:text-2xl font-bold text-purple-200 z-50 lg:max-w-[45rem] max-w-[27rem] tracking-wider md:mt-20 sm:mt-[-40rem] mt-[-32rem]">
 Hi, I’m Mahmoud, a Frontend Developer passionate about creating fast, reliable, and visually engaging websites. I design responsive interfaces with modern frameworks like React, Tailwind CSS, and JavaScript. From landing pages to full web apps, I focus on clean, scalable code and smooth user experiences that balance design and functionality.
         </h3>
 

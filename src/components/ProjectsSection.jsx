@@ -173,13 +173,15 @@ const ProjectsSection = () => {
 
   return (
     <section
+    
       ref={sectionRef}
-      id="horizantol-section"
+      id="horizantol-section "
       className="relative py-20 bg-gradient-to-b from-[#9a74cf50] to-black overflow-hidden"
     >
       {/* section title */}
-      <div className="container mx-auto px-4 mb-16 relative z-10">
+      <div className="container mx-auto px-4 mb-16 relative z-10 ">
         <h2
+        id="projects"
           ref={titleRef}
           className="font-sans text-5xl md:text-6xl lg:text-7xl font-bold text-white text-center mb-4 opacity-0"
         >
@@ -187,7 +189,7 @@ const ProjectsSection = () => {
         </h2>
         <div
           ref={titleLineRef}
-          className=" w-0 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto opacity-0"
+          className=" w-0 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto opacity-0" 
         ></div>
       </div>
 

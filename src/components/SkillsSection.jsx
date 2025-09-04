@@ -105,7 +105,7 @@ export default function SkillTiles({
       className="relative py-16 md:py-20 bg-gradient-to-r from-[#EBD8FF] via-[#DCC2FF] to-[#C3A5FF]"
       aria-labelledby="skills-tiles-heading"
     >
-      <div className="container mx-auto px-4 max-w-6xl">
+      <div className="container mx-auto px-4 max-w-6xl"id="experience">
         {/* Header */}
         <div className="text-center mb-12">
           <h2
