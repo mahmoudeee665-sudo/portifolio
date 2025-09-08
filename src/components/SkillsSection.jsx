@@ -199,9 +199,7 @@ function Blob({ name, level, color, Icon, tag, index }) {
               <h3 className="font-semibold text-white truncate">{name}</h3>
               <p className="text-[11px] text-purple-200/70">{tag}</p>
             </div>
-            <div className="ml-auto text-sm font-semibold text-purple-100/90">
-              {level}%
-            </div>
+
           </div>
 
           {/* liquid progress: ring + bar */}
