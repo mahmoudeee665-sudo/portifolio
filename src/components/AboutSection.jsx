@@ -29,7 +29,7 @@ const AboutSection = () => {
       titleRef.current,
       { y: 100, opacity: 0 },
       {
-        y: -430,
+        y: -300,
         opacity: 1,
         duration: 0.8,
         scrollTrigger: {
@@ -45,7 +45,7 @@ const AboutSection = () => {
       introRef.current,
       { y: 100, opacity: 0, filter: "blur(10px)" },
       {
-        y: -400,
+        y: -430,
         opacity: 1,
         filter: "blur(0px)",
         duration: 1.5,

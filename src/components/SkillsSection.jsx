@@ -1,10 +1,7 @@
-// src/components/SkillTiles.jsx
 "use client";
 
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
+import { useMemo } from "react";
+import { motion } from "framer-motion";
 import {
   SiReact,
   SiJavascript,
@@ -20,177 +17,227 @@ import {
 } from "react-icons/si";
 import { FiSmartphone } from "react-icons/fi";
 
-
 const SKILLS = [
-  { name: "React", level: 85, color: "#61DAFB", Icon: SiReact, primary: true },
-  { name: "JavaScript", level: 90, color: "#F7DF1E", Icon: SiJavascript },
-  { name: "TypeScript", level: 78, color: "#3178C6", Icon: SiTypescript },
-  { name: "HTML", level: 100, color: "#E34F26", Icon: SiHtml5 },
-  { name: "CSS", level: 100, color: "#1572B6", Icon: SiCss3 },
-  { name: "SASS / SCSS", level: 65, color: "#CC6699", Icon: SiSass },
-  { name: "jQuery", level: 60, color: "#0769AD", Icon: SiJquery },
-  { name: "Tailwind CSS", level: 90, color: "#38BDF8", Icon: SiTailwindcss },
-  { name: "Bootstrap", level: 75, color: "#7952B3", Icon: SiBootstrap },
-  { name: "Git", level: 70, color: "#F05033", Icon: SiGit },
-  { name: "GitHub", level: 75, color: "#181717", Icon: SiGithub },
-  { name: "Responsive Design", level: 80, color: "#22C55E", Icon: FiSmartphone },
+  {
+    name: "React",
+    level: 92,
+    color: "#61DAFB",
+    Icon: SiReact,
+    tag: "Framework",
+  },
+  {
+    name: "JavaScript",
+    level: 90,
+    color: "#F7DF1E",
+    Icon: SiJavascript,
+    tag: "Language",
+  },
+
+  { name: "HTML", level: 100, color: "#E34F26", Icon: SiHtml5, tag: "Markup" },
+  { name: "CSS", level: 100, color: "#1572B6", Icon: SiCss3, tag: "Styles" },
+  {
+    name: "SASS / SCSS",
+    level: 65,
+    color: "#CC6699",
+    Icon: SiSass,
+    tag: "Styles",
+  },
+  {
+    name: "Tailwind CSS",
+    level: 90,
+    color: "#38BDF8",
+    Icon: SiTailwindcss,
+    tag: "Styles",
+  },
+  {
+    name: "Bootstrap",
+    level: 75,
+    color: "#7952B3",
+    Icon: SiBootstrap,
+    tag: "UI",
+  },
+  {
+    name: "Responsive Design",
+    level: 84,
+    color: "#22C55E",
+    Icon: FiSmartphone,
+    tag: "UX",
+  },
+  {
+    name: "jQuery",
+    level: 60,
+    color: "#0769AD",
+    Icon: SiJquery,
+    tag: "Legacy",
+  },
+  { name: "Git", level: 70, color: "#F05033", Icon: SiGit, tag: "Tools" },
+  { name: "GitHub", level: 75, color: "#181717", Icon: SiGithub, tag: "Tools" },
 ];
 
-
-
-
-export default function SkillTiles({
+export default function SkillsSectionAlt({
   title = "Skills",
-  subtitle = "Smooth, modern, and responsive",
+  subtitle = "Gooey Nebula — liquid, living UI",
   skills = SKILLS,
 }) {
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const animateReplayable = (target, fromVars, toVars, start = "top 85%") => {
-      gsap.set(target, fromVars);
-      ScrollTrigger.create({
-        trigger: target,
-        start,
-        onEnter: () => gsap.to(target, toVars),
-        onEnterBack: () => gsap.to(target, { ...toVars, duration: 0.6 }),
-        onLeave: () => gsap.set(target, fromVars),
-        onLeaveBack: () => gsap.set(target, fromVars),
-      });
-    };
-
-    // Title
-    const titleEl = section.querySelector(".tiles-title");
-    const subEl = section.querySelector(".tiles-sub");
-    if (titleEl) animateReplayable(titleEl, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, "top 80%");
-    if (subEl) animateReplayable(subEl, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, "top 80%");
-
-    // Tiles
-    const tiles = section.querySelectorAll(".skill-tile");
-    tiles.forEach((tile) => {
-      animateReplayable(tile, { y: 40, opacity: 0, scale: 0.95 }, { y: 0, opacity: 1, scale: 1, duration: 0.55 }, "top 85%");
-    });
-
-    // Bars
-    const bars = section.querySelectorAll(".skill-bar");
-    bars.forEach((bar) => {
-      const lv = Number(bar.dataset.level || 0);
-      gsap.set(bar, { width: "0%" });
-      ScrollTrigger.create({
-        trigger: bar,
-        start: "top 90%",
-        onEnter: () => gsap.to(bar, { width: lv + "%", duration: 1 }),
-        onEnterBack: () => gsap.to(bar, { width: lv + "%", duration: 0.8 }),
-        onLeave: () => gsap.set(bar, { width: "0%" }),
-        onLeaveBack: () => gsap.set(bar, { width: "0%" }),
-      });
-    });
-
-    return () => {
-      ScrollTrigger.getAll().forEach((st) => {
-        if (section.contains(st.trigger)) st.kill();
-      });
-    };
-  }, []);
+  const marquee = useMemo(
+    () => skills.map((s) => s.name).join(" • "),
+    [skills]
+  );
 
   return (
     <section
-      ref={sectionRef}
-      id="skills-section"
-      className="relative py-16 md:py-20 bg-gradient-to-r from-[#EBD8FF] via-[#DCC2FF] to-[#C3A5FF]"
-      aria-labelledby="skills-tiles-heading"
+      id="experience"
+      className="relative overflow-hidden py-16 md:py-24 bg-gradient-to-b from-black via-violet-950 to-black"
     >
-      <div className="container mx-auto px-4 max-w-6xl"id="experience">
+      {/* SVG filters (gooey) */}
+      <svg
+        className="absolute -z-10 pointer-events-none"
+        width="0"
+        height="0"
+        aria-hidden
+      >
+        <defs>
+          <filter id="goo">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
+            <feColorMatrix
+              in="blur"
+              mode="matrix"
+              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -10"
+              result="goo"
+            />
+            <feBlend in="SourceGraphic" in2="goo" />
+          </filter>
+        </defs>
+      </svg>
+
+      {/* subtle starfield */}
+      <div className="absolute inset-0 -z-20 opacity-90 bg-[radial-gradient(circle_at_10%_10%,rgba(139,92,246,0.15),transparent_55%),radial-gradient(circle_at_90%_20%,rgba(236,72,153,0.15),transparent_55%),linear-gradient(180deg,#0b0b10_0%,#0f0f16_100%)]" />
+
+      <div className="container mx-auto px-4 max-w-6xl">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2
-            id="skills-tiles-heading"
-            className="tiles-title text-3xl md:text-4xl font-extrabold tracking-tight text-zinc-900"
-          >
+        <div className="text-center mb-10 md:mb-14">
+          <p className="text-xs uppercase tracking-[0.3em] text-purple-300/90">
+            Fluid Capabilities
+          </p>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-white">
             {title}
           </h2>
           {subtitle && (
-            <p className="tiles-sub mt-2 text-base text-zinc-700">{subtitle}</p>
+            <p className="mt-2 text-sm md:text-base text-purple-200/80">
+              {subtitle}
+            </p>
           )}
-          <div className="mx-auto mt-4 h-1 w-32 rounded-full bg-gradient-to-r from-purple-500 to-pink-500" />
+          <div className="mx-auto mt-4 h-1 w-28 rounded-full bg-gradient-to-r from-violet-500 to-pink-500" />
         </div>
 
-        {/* Grid */}
-        <ul className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skills.map(({ name, level, color, Icon, primary }) => (
-            <li
-              key={name}
-              className={[
-                "skill-tile group relative rounded-2xl p-6 shadow-lg bg-white border border-purple-100 transition-all duration-500 transform",
-                "hover:-translate-y-3 hover:scale-[1.05] hover:shadow-2xl", // lift + scale
-                "hover:border-transparent hover:bg-gradient-to-br hover:from-purple-50 hover:to-pink-50", // gradient glow
-                primary ? "ring-2 ring-purple-500/40" : "",
-              ].join(" ")}
-            >
-              <div className="flex items-center gap-4">
-                {/* Icon wrapper */}
-                <div
-                  className="icon-wrapper shrink-0 p-3 rounded-xl bg-gradient-to-br from-purple-200 to-pink-200 transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110"
-                >
-                  <Icon
-                    size={40}
-                    color={color}
-                    className="transition-transform duration-500 group-hover:-rotate-6"
-                  />
-                </div>
-
-                <div className="min-w-0">
-                  <h3 className="font-semibold text-zinc-900 flex items-center gap-2">
-                    <span className="truncate">{name}</span>
-                    {primary && (
-                      <span className="text-[10px] uppercase tracking-wide px-2 py-0.5 rounded-full bg-purple-600 text-white">
-                        Primary
-                      </span>
-                    )}
-                  </h3>
-                  <p className="text-xs text-zinc-500">Proficiency</p>
-                </div>
-                <div className="ml-auto text-sm font-semibold text-zinc-600">{level}%</div>
-              </div>
-
-              {/* Progress bar */}
-              <div className="mt-5 h-2 w-full rounded-full bg-zinc-200 overflow-hidden">
-                <div
-                  className="skill-bar h-full rounded-full"
-                  data-level={level}
-                  style={{
-                    background:
-                      "linear-gradient(90deg, rgba(124,58,237,1) 0%, rgba(236,72,153,1) 100%)",
-                    width: "0%",
-                  }}
-                />
-              </div>
-
-              {/* Hover glow ring */}
-              <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-purple-400/40 group-hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all duration-500 pointer-events-none" />
-            </li>
-          ))}
-        </ul>
-
-        {/* Tags */}
-        <div className="mt-12 flex flex-wrap justify-center gap-3">
-          {["Modern Frontend", "UI/UX", "Performance", "Animation", "Teamwork"].map(
-            (tag) => (
-              <span
-                key={tag}
-                className="px-3 py-1 rounded-full bg-purple-600 text-white text-xs shadow-sm"
-              >
-                {tag}
-              </span>
-            )
-          )}
+        {/* Gooey blob field */}
+        <div className="relative mx-auto max-w-5xl">
+          <div
+            className="relative grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6"
+            style={{ filter: "url(#goo)" }}
+          >
+            {skills.map((s, i) => (
+              <Blob key={s.name} {...s} index={i} />
+            ))}
+            {/* extra tiny blobs just for organic feel */}
+            {Array.from({ length: 6 }).map((_, i) => (
+              <FloatingDot key={`dot-${i}`} delay={i * 0.6} />
+            ))}
+          </div>
         </div>
+
+        {/* marquee */}
       </div>
     </section>
+  );
+}
+
+function Blob({ name, level, color, Icon, tag, index }) {
+  const float = {
+    y: [0, -10, 0, 6, 0],
+    x: [0, 6, 0, -4, 0],
+    transition: {
+      repeat: Infinity,
+      duration: 6 + (index % 5),
+      ease: "easeInOut",
+    },
+  };
+
+  const ringStyle = {
+    background: `conic-gradient(${color} ${
+      level * 3.6
+    }deg, rgba(255,255,255,0.08) 0deg)`,
+  };
+
+  return (
+    <motion.div
+      whileHover={{ scale: 1.07 }}
+      animate={float}
+      className="relative rounded-[2.5rem] p-1"
+    >
+      {/* outer liquid */}
+      <div className="rounded-[2.5rem] p-1 bg-gradient-to-br from-violet-600/30 to-pink-600/30">
+        {/* inner content */}
+        <div className="relative rounded-[2rem] bg-zinc-900/80 border border-white/10 backdrop-blur">
+          {/* glow */}
+          <div
+            className="absolute -inset-px rounded-[2rem] opacity-0 hover:opacity-100 transition pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(60%_50%_at_50%_10%,rgba(168,85,247,0.25),transparent_70%)",
+            }}
+          />
+
+          {/* header */}
+          <div className="flex items-center gap-3 p-4">
+            <div className="relative shrink-0">
+              <div className="w-12 h-12 rounded-full grid place-items-center bg-zinc-800/80 border border-white/10">
+                <Icon size={26} color={color} />
+              </div>
+            </div>
+            <div className="min-w-0">
+              <h3 className="font-semibold text-white truncate">{name}</h3>
+              <p className="text-[11px] text-purple-200/70">{tag}</p>
+            </div>
+            <div className="ml-auto text-sm font-semibold text-purple-100/90">
+              {level}%
+            </div>
+          </div>
+
+          {/* liquid progress: ring + bar */}
+          <div className="px-4 pb-4 grid grid-cols-[auto_1fr] items-center gap-3">
+            <div className="relative w-12 h-12 rounded-full" style={ringStyle}>
+              <div className="absolute inset-[3px] rounded-full bg-zinc-900 grid place-items-center">
+                <span className="text-[10px] text-purple-100/90">{level}%</span>
+              </div>
+            </div>
+            <div className="h-2 w-full rounded-full bg-white/10 overflow-hidden">
+              <motion.div
+                initial={{ width: 0 }}
+                whileInView={{ width: `${level}%` }}
+                viewport={{ once: false, margin: "-20%" }}
+                transition={{ duration: 0.9 }}
+                className="h-full rounded-full bg-gradient-to-r from-purple-500 to-pink-500"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function FloatingDot({ delay = 0 }) {
+  return (
+    <motion.div
+      className="w-6 h-6 rounded-3xl bg-gradient-to-br from-violet-400/40 to-pink-400/40"
+      initial={{ opacity: 0.6 }}
+      animate={{
+        opacity: [0.6, 1, 0.6],
+        y: [0, -20, 0],
+        x: [0, 10, 0],
+      }}
+      transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay }}
+    />
   );
 }

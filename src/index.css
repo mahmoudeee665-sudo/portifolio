@@ -93,3 +93,59 @@ section {
   min-height: auto !important;  /* remove the forced 100vh */
   padding: 4rem 0;              /* control spacing instead */
 }
+
+
+/* ===== Cross-browser baseline ===== */
+*,*::before,*::after { box-sizing: border-box; }
+
+/* Tailwind preflight should be ON; this complements it */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Prevent font-size bumps on mobile Safari */
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  font-feature-settings: "liga","kern";
+  -webkit-font-smoothing: antialiased;    /* Blink/WebKit */
+  -moz-osx-font-smoothing: grayscale;     /* Firefox/macOS */
+  text-rendering: optimizeLegibility;     /* hinting */
+}
+
+/* Images/videos don’t overflow */
+img,svg,video,canvas { display: block; max-width: 100%; }
+
+/* Consistent focus outlines */
+:focus-visible {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 2px;
+}
+
+/* Scrollbar differences: stabilize layout */
+:root { scrollbar-gutter: stable; }
+
+/* Backdrop filter fallback */
+.backdrop-support {
+  background-color: rgba(17, 17, 17, 0.5);
+}
+@supports ((-webkit-backdrop-filter: blur(8px)) or (backdrop-filter: blur(8px))) {
+  .backdrop-support {
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    background-color: rgba(17, 17, 17, 0.35);
+  }
+}
+
+/* Prefer transform-based animation to avoid subpixel jiggle */
+.will-transform { will-change: transform; transform: translateZ(0); }
+
+/* Mobile 100vh fix: use var(--vh) instead of raw 100vh when needed */
+:root { --vh: 1vh; }  /* updated by JS below */
+.fullscreen {
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+/* Optional: unify default form controls a bit */
+button,input,select,textarea { font: inherit; color: inherit; }
